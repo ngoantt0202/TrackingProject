@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Detail</title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="padding-top:20px;">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="well">
+            <span id="spanUsername" class="text-muted"></span>
+            <input type="button" id="btnLogout" class="btn btn-success pull-right" value="Logout" />
+        </div>
+        <div class="well" id="divData">
+            <table class="table table-bordered">
+                <colgroup>
+                    <col width="20%" />
+                    <col width="30%" />
+                    <col width="20%" />
+                    <col width="30%" />
+                </colgroup>
+                <thead>
+                    <tr class="success">
+                        <th colspan="4">
+                            <h2>Task #10772</h2>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td  colspan="4">
+                            <h2>Execute Test_P01800_紹介状_SetDataToExcel</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status:</td>
+                        <td>
+                        </td>
+                        <td>Priority:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Important:</td>
+                        <td></td>
+                        <td>Estimated Time:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td colspan="3"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#spanUsername').text('Hello ' + localStorage.getItem('userName'));
+        });
+    </script>
+</body>
+</html>

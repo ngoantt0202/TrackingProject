@@ -1,0 +1,150 @@
+﻿@model IEnumerable<TaskTracking.Models.TaskViewModels>
+
+@{
+    ViewBag.Title = "Improvement";
+    Layout = "~/Views/Shared/_Layout_1.cshtml";
+}
+
+<div>
+    <div>
+        <table class="table table-bordered" id="tblData">
+            <thead>
+                <tr>
+                    <th colspan="9">
+                        <h4>LIST TASK GOOD</h4>
+                    </th>
+                </tr>
+                <tr class="success">
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Subject)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Priority)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Important)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Done)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tblBody">
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            #@Html.DisplayFor(modelItem => item.TaskId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriorityDic[item.Priority])
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ImportantDic[item.Important])
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StatusDic[item.Status])
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Done)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table class="table table-bordered" id="tblData">
+            <thead>
+                <tr>
+                    <th colspan="9">
+                        <h4>LIST TASK IMPROVE</h4>
+                    </th>
+                </tr>
+                <tr class="danger">
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Subject)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Priority)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Important)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Done)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tblBody">
+                @foreach (var item in ViewBag.taskImproveLst as IEnumerable<TaskTracking.Models.TaskViewModels>)
+                 {
+                    <tr>
+                        <td>
+                            #@Html.DisplayFor(modelItem => item.TaskId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriorityDic[item.Priority])
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ImportantDic[item.Important])
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StatusDic[item.Status])
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Done)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <p>
+            @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-default btn-sm" })
+        </p>
+    </div>
+</div>
+
+

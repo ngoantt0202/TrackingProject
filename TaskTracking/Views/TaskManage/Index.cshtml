@@ -1,0 +1,135 @@
+﻿@model IEnumerable<TaskTracking.Models.TaskViewModels>
+
+@{
+    ViewBag.Title = "Task List";
+    Layout = "~/Views/Shared/_Layout_1.cshtml";
+}
+
+<div>
+    <div>
+        <p>
+            @*@Html.ActionLink("New Task", "Create", null, new { @class = "btn btn-primary btn-sm"})*@
+            @Html.ActionLink("Improve Task", "Improvement",null, new { @class = "btn btn-success btn-sm" })
+            @Html.ActionLink("Group Manage", "Index", "GroupManage", null, new { @class = "btn btn-success btn-sm" })
+        </p>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="5"><h4>SUMMARRY TASK</h4></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="success"></th>
+                <th class="success">One Day (Task)</th>
+                <th class="success">One Month (Task)</th>
+                <th class="success">One Quarter (Task)</th>
+                <th class="success">One Year (Task)</th>
+            </tr>
+            <tr>
+                <td class="success">Tổng số task hoàn thành:</td>
+                <td align="center">@ViewBag.TaskForDay.TaskDone</td>
+                <td align="center">@ViewBag.TaskForMonth.TaskDone</td>
+                <td align="center">@ViewBag.TaskForQuarter.TaskDone</td>
+                <td align="center">@ViewBag.TaskForYear.TaskDone</td>
+            </tr>
+            <tr>
+                <td class="success">Tổng số task chưa hoàn thành:</td>
+                <td align="center">@ViewBag.TaskForDay.TaskNotDone</td>
+                <td align="center">@ViewBag.TaskForMonth.TaskNotDone</td>
+                <td align="center">@ViewBag.TaskForQuarter.TaskNotDone</td>
+                <td align="center">@ViewBag.TaskForYear.TaskNotDone</td>
+            </tr>
+            <tr>
+                <td class="success">Tổng số task:</td>
+                <td align="center">@ViewBag.TaskForDay.TaskTotal</td>
+                <td align="center">@ViewBag.TaskForMonth.TaskTotal</td>
+                <td align="center">@ViewBag.TaskForQuarter.TaskTotal</td>
+                <td align="center">@ViewBag.TaskForYear.TaskTotal</td>
+            </tr>
+            <tr>
+                <td class="success">Tỉ lệ % task hoàn thành:</td>
+                <td align="center">@ViewBag.TaskForDay.TaskRate%</td>
+                <td align="center">@ViewBag.TaskForMonth.TaskRate%</td>
+                <td align="center">@ViewBag.TaskForQuarter.TaskRate%</td>
+                <td align="center">@ViewBag.TaskForYear.TaskRate%</td>
+            </tr>
+        </tbody>
+        <tbody></tbody>
+    </table>
+    <table class="table table-bordered" id="tblData">
+        <thead>
+            <tr>
+                <th colspan="9">
+                    <h4>List Task</h4>
+                </th>
+            </tr>
+            <tr class="success">
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Priority)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Important)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Done)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tblBody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                       #@Html.DisplayFor(modelItem => item.TaskId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PriorityDic[item.Priority])
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImportantDic[item.Important])
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StatusDic[item.Status])
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Done)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.TaskId }) |*@
+                        @Html.ActionLink("Details", "Details", new { taskId = item.TaskId }) 
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.TaskId })*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+            
+        

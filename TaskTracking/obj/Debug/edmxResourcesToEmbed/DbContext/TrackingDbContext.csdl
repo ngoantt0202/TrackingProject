@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="tasktrackingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__migrationhistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="aspnetrole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="aspnetusers" Relationship="Self.aspnetuserroles" FromRole="aspnetroles" ToRole="aspnetusers" />
+  </EntityType>
+  <EntityType Name="aspnetuserclaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Name="ClaimValue" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="aspnetuser" Relationship="Self.ApplicationUser_Claims" FromRole="aspnetuserclaims" ToRole="aspnetusers" />
+  </EntityType>
+  <EntityType Name="aspnetuserlogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="aspnetuser" Relationship="Self.ApplicationUser_Logins" FromRole="aspnetuserlogins" ToRole="aspnetusers" />
+  </EntityType>
+  <EntityType Name="aspnetuser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="aspnetuserclaims" Relationship="Self.ApplicationUser_Claims" FromRole="aspnetusers" ToRole="aspnetuserclaims" />
+    <NavigationProperty Name="aspnetuserlogins" Relationship="Self.ApplicationUser_Logins" FromRole="aspnetusers" ToRole="aspnetuserlogins" />
+    <NavigationProperty Name="aspnetroles" Relationship="Self.aspnetuserroles" FromRole="aspnetusers" ToRole="aspnetroles" />
+  </EntityType>
+  <EntityType Name="t_task">
+    <Key>
+      <PropertyRef Name="TaskId" />
+    </Key>
+    <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Priority" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Important" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="GroupId" Type="Int32" Nullable="false" />
+    <Property Name="EstimatedTime" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" />
+    <Property Name="Done" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ApplicationUser_Claims">
+    <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="aspnetuserclaims" Type="Self.aspnetuserclaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnetusers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="aspnetuserclaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ApplicationUser_Logins">
+    <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="aspnetuserlogins" Type="Self.aspnetuserlogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnetusers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="aspnetuserlogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="aspnetuserroles">
+    <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="*" />
+    <End Role="aspnetroles" Type="Self.aspnetrole" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__migrationhistory" EntityType="Self.C__migrationhistory" />
+    <EntitySet Name="aspnetroles" EntityType="Self.aspnetrole" />
+    <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaim" />
+    <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogin" />
+    <EntitySet Name="aspnetusers" EntityType="Self.aspnetuser" />
+    <EntitySet Name="t_task" EntityType="Self.t_task" />
+    <AssociationSet Name="ApplicationUser_Claims" Association="Self.ApplicationUser_Claims">
+      <End Role="aspnetusers" EntitySet="aspnetusers" />
+      <End Role="aspnetuserclaims" EntitySet="aspnetuserclaims" />
+    </AssociationSet>
+    <AssociationSet Name="ApplicationUser_Logins" Association="Self.ApplicationUser_Logins">
+      <End Role="aspnetusers" EntitySet="aspnetusers" />
+      <End Role="aspnetuserlogins" EntitySet="aspnetuserlogins" />
+    </AssociationSet>
+    <AssociationSet Name="aspnetuserroles" Association="Self.aspnetuserroles">
+      <End Role="aspnetusers" EntitySet="aspnetusers" />
+      <End Role="aspnetroles" EntitySet="aspnetroles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

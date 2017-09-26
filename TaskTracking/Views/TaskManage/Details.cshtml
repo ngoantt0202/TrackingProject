@@ -1,0 +1,62 @@
+﻿@model TaskTracking.Models.TaskViewModels
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout_1.cshtml";
+}
+
+<div>
+    <div>
+        <div><h3>Task #@Html.DisplayFor(model => model.TaskId)</h3></div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th colspan="4" class="success"><h4>@Html.DisplayFor(model => model.Subject)</h4></th>
+                </tr>
+                <tr>
+                    <td class="success">@Html.DisplayNameFor(model => model.Priority)</td>
+                    <td>@Html.DisplayFor(model => model.Priority)</td>
+                    <td class="success">@Html.DisplayNameFor(model => model.Important)</td>
+                    <td>@Html.DisplayFor(model => model.Important)</td>
+                </tr>
+                <tr>
+                    <td class="success">@Html.DisplayNameFor(model => model.Type)</td>
+                    <td>@Html.DisplayFor(model => model.Type)</td>
+                    <td class="success">@Html.DisplayNameFor(model => model.GroupId)</td>
+                    <td>@Html.DisplayFor(model => model.GroupId)</td>
+                </tr>
+                <tr>
+                    <td class="success">@Html.DisplayNameFor(model => model.Assign)</td>
+                    <td>@Html.DisplayFor(model => model.Assign)</td>
+                    <td class="success">@Html.DisplayNameFor(model => model.Status)</td>
+                    <td>@Html.DisplayFor(model => model.Status)</td>
+                </tr>
+                <tr>
+                    <td class="success">@Html.DisplayNameFor(model => model.StartDate)</td>
+                    <td>@Html.DisplayFor(model => model.StartDate)</td>
+                    <td class="success">@Html.DisplayNameFor(model => model.EndDate)</td>
+                    <td>@Html.DisplayFor(model => model.EndDate)</td>
+                </tr>
+                <tr>
+                    <td class="success">@Html.DisplayNameFor(model => model.Done)</td>
+                    <td colspan="3">@Html.DisplayFor(model => model.Done)</td>
+                </tr>
+                <tr>
+                    <td class="success">@Html.DisplayNameFor(model => model.Description)</td>
+                    <td colspan="3">@Html.DisplayFor(model => model.Description)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <p>
+            @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+            @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-default btn-sm" })
+        </p>
+    </div>
+    <div>
+        <div class="fb-comments" data-href="http://localhost:65076/TaskManage/Details?taskId=@Model.GroupId" data-numposts="5" data-width="100%"></div>
+    </div>
+</div>
+
+

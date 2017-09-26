@@ -1,0 +1,57 @@
+﻿@model TaskTracking.Models.RegisterBindingModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout_2.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <table class="table table-bordered">
+            <thead>
+                <tr class="success">
+                    <td colspan="2">
+                        <h3>New User Registration</h3>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">@Html.ValidationSummary(true, "", new { @class = "text-danger" })</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })</td>
+                    <td>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })</td>
+                    <td>
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })</td>
+                    <td>
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td colspan="2">
+                        <input type="submit" id="btnRegister" class="btn btn-success" value="Register" />
+                        @Html.ActionLink("Login", "Login", "User", null, new { @class = "btn btn-success" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+
+
+

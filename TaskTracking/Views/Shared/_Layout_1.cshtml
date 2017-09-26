@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap-tagsinput.css" rel="stylesheet" />
+</head>
+<body style="padding-top:20px;">
+    <div id="fb-root"></div>
+    <script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=495586707490041";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="well">
+            <span id="spanUsername" class="text-muted">Hello @Session["userName"]</span>
+            @*<input type="button" id="btnLogout" class="btn btn-success pull-right" value="Logout" />*@
+            @Html.ActionLink("Logout", "Logout", "User", null, new { @class = "btn btn-success pull-right" })
+        </div>
+
+        <div class="well" id="divData">
+            @RenderBody()
+        </div>
+        <div class="well">
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        <script src="~/Scripts/bootstrap-tagsinput.js"></script>
+        @RenderSection("scripts", required: false)
+</body>
+</html>

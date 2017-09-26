@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Tracking Manager</title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="padding-top:20px;">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="well">
+            <span id="spanUsername" class="text-muted"></span>
+            <input type="button" id="btnLogout" class="btn btn-success pull-right" value="Logout" />
+        </div>
+        <div class="well" id="divData">
+            <table class="table table-bordered" id="tblData">
+                <thead>
+                    <tr class="success">
+                        <td></td>
+                        <td>Subject</td>
+                        <td>Priority</td>
+                        <td>Important</td>
+                        <td>Type</td>
+                        <td>Status</td>
+                        <td>Start Date</td>
+                        <td>End Date</td>
+                        <td>Done</td>
+                    </tr>
+                </thead>
+                <tbody id="tblBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#spanUsername').text('Hello ' + localStorage.getItem('userName'));
+
+            if (localStorage.getItem('accessToken') == null) {
+                window.location.href = 'Login.html';
+            }
+
+            $('#btnLogout').click(function () {
+                localStorage.removeItem('accessToken');
+                window.location.href = 'Login.html';
+            });
+
+            function getStatus(input) {
+                var status = Array(
+                    { '1': 'New' },
+                    { '2': 'In Progress' },
+                    { '3': 'Resolved' },
+                    { '4': 'Feedback' },
+                    { '5': 'Closed' },
+                    { '6': 'Rejected' },
+                    { '7': 'Canceled' },
+                    { '8': 'Pending' }
+                    );
+                return status[input];
+            }
+
+            loadDataInit();
+
+            // load tasks init
+            function loadDataInit() {
+                $.ajax({
+                    url: 'api/Task/GetAll',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    },
+                    success: function (data) {
+                        $('#divData').removeClass('hidden');
+                        $('#tblBody').empty();
+                        $.each(data, function (index, value) {
+                            var row = $('<tr><td>'
+                                + '<a href="#">' + value.TaskId + '</a>' + '</td><td>'
+                                + value.Subject + '</td><td>'
+                                + value.Priority + '</td><td>'
+                                + value.Important + '</td><td>'
+                                + value.Type + '</td><td>'
+                                + value.Status + '</td><td>'
+                                + value.StartDate + '</td><td>'
+                                + value.EndDate + '</td><td>'
+                                + value.Done+ '%'
+                                + '</td></tr>');
+                            $('#tblData').append(row);
+
+                        });
+                    },
+                    error: function (jqXHR) {
+                        if (jqXHR.status == "401") {
+                            $('#errorModel').modal('show');
+                        } else {
+                            $('#divErrorText').text(jqXHR.responseText);
+                            $('#divError').show('fade');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

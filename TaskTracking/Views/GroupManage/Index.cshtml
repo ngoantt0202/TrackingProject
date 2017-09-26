@@ -1,0 +1,102 @@
+﻿@model IEnumerable<TaskTracking.Models.GroupViewModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_1.cshtml";
+}
+
+<div>
+    <div>
+        <p>
+            @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Task Manage", "Index", "TaskManage",null, new { @class = "btn btn-success btn-sm" })
+        </p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="4"><h4>SUMMARRY GROUP FOR DAY</h4></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="success">
+                    <td>Group Name</td>
+                    <td>Total Members</td>
+                    <td>Remain Member</td>
+                    <td>Leave Members</td>
+                </tr>
+                @foreach (var item in ViewBag.SummaryGroup as IEnumerable<TaskTracking.DTOs.SummaryGroupDto>)
+                {
+                    <tr>
+                        <td class="success">@Html.DisplayFor(modelItem => item.GroupName)</td>
+                        <td align="center">@Html.DisplayFor(modelItem => item.TotalMembers)</td>
+                        <td align="center">@Html.DisplayFor(modelItem => item.RemainMembers)</td>
+                        <td align="center">@Html.DisplayFor(modelItem => item.LeaveMembers)</td>
+                    </tr>
+                }
+            </tbody>
+            <tbody></tbody>
+        </table>
+        <table class="table table-bordered">
+            <tr>
+                <th colspan="6">
+                    <h4>LIST GROUP</h4>
+                </th>
+            </tr>
+            <tr class="success">
+                <th>
+                   
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GroupName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GroupType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Members)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        #@Html.DisplayFor(modelItem => item.GroupId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GroupName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GroupTypeDic[item.GroupType])
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Members)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                        @Html.ActionLink("Details", "Details", new { groupId = item.GroupId  })
+                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div>
+        <p>
+            @Html.ActionLink("Back", "Index", "TaskManage", null, new { @class = "btn btn-default btn-sm" })
+        </p>
+    </div>
+    <div>
+        <div class="fb-comments" data-href="http://localhost:65076/GroupManage/Index" data-numposts="5" data-width="100%"></div>
+    </div>
+</div>
+
+

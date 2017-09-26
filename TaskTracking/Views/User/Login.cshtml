@@ -1,0 +1,89 @@
+﻿@model TaskTracking.Models.LoginBindingModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout_2.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <table class="table table-bordered">
+            <thead>
+                <tr class="success">
+                    <th colspan="2">
+                        <h3>User Login</h3>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })</td>
+                    <td>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })</td>
+                    <td>
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td colspan="2">
+                        <input type="submit" id="btnLogin" class="btn btn-success" value="Login" />
+                        @Html.ActionLink("Register", "Register", "User", null, new { @class = "btn btn-success" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="success">
+                    <th class="success">
+                        Social Login
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="button" id="btnGoogleLogin" value="Login with Google" class="btn btn-danger" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" id="btnFacebookLogin" value="Login with Facebook" class="btn btn-primary" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/GoogleAuthentication.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            getAccessToken();
+
+            $('#btnGoogleLogin').click(function () {
+                window.location.href = "/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=http%3A%2F%2Flocalhost%3A65076%2FUser%2FLogin&state=4fAJtYnrDJO22BMTCRJLzsvr3CIaBuSZkbTkcfUEgIw1";
+            });
+
+            $('#btnFacebookLogin').click(function () {
+                window.location.href = "/api/Account/ExternalLogin?provider=Facebook&response_type=token&client_id=self&redirect_uri=http%3A%2F%2Flocalhost%3A65076%2FUser%2FLogin&state=4fAJtYnrDJO22BMTCRJLzsvr3CIaBuSZkbTkcfUEgIw1";
+            });
+        });
+</script>
+
+
+

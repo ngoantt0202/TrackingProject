@@ -1,0 +1,99 @@
+﻿@model TaskTracking.Models.GroupViewModels
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout_1.cshtml";
+}
+<div>
+    <div>
+        <h2>Create New Group</h2>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GroupName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GroupType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.GroupType, new SelectList(Model.GroupTypeDic, "Key", "Value"), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GroupType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("ADD MEMBERS", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div>
+                            <input type="text" name="txtEmail" id="txtEmail" class="form-control" value="" style="float: left;" />
+                            <button type="button" id="btnAddMembers" class="btn btn-primary" style="margin-left: 10px;">Find Members</button>
+                        </div>
+                        <div id="divMembers" style="margin-top:10px;" class="hidden" >
+                            <input type="text" id="tags" value="" name="Tags" data-role="tagsinput"  />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 5 })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        @Html.ActionLink("Back", "Index",  null, new { @class = "btn btn-default btn-sm" })
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var tag = $('#tags');
+        tag.tagsinput({
+            maxTags: 3
+        });
+        tag.tagsinput('removeAll');
+        $('#btnAddMembers').click(function () {
+            $.ajax({
+                url: '/api/Account/GetUser?email='+$('#txtEmail').val(),
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Session["accessToken"]'
+                },
+                success: function (response) {
+                    console.log(response);
+                    $('#divMembers').removeClass("hidden");
+                    var email = response.Email ;
+                    tag.tagsinput('add', email);
+                },
+                error: function (jqXHR) {
+                    console.log(jqXHR.responseText);
+                    alert("User không tồn tại.")
+                }
+            });
+        });
+    });
+</script>
+
+
+
